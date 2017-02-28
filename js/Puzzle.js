@@ -1,7 +1,7 @@
 import Piece from './Piece';
 
 export default class Puzzle {
-  constructor (size = 4, image = 'img/default.jpg') {
+  constructor (size = 4, image = 'public/img/default.jpg') {
     this.element = document.getElementById('board');
     this.size = size;
     this.image = image;

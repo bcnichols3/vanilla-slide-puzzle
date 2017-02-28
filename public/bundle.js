@@ -90,7 +90,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var Puzzle = function () {
   function Puzzle() {
     var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 4;
-    var image = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'img/default.jpg';
+    var image = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'public/img/default.jpg';
 
     _classCallCheck(this, Puzzle);
 
