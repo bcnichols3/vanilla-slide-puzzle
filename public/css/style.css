@@ -1,0 +1,114 @@
+body {
+  background-color: #eee;
+}
+
+button {
+  margin-left: 5px;
+}
+
+.btn {
+  background: #d98934;
+  background-image: -webkit-linear-gradient(top, #d98934, #b8782b);
+  background-image: -moz-linear-gradient(top, #d98934, #b8782b);
+  background-image: -ms-linear-gradient(top, #d98934, #b8782b);
+  background-image: -o-linear-gradient(top, #d98934, #b8782b);
+  background-image: linear-gradient(to bottom, #d98934, #b8782b);
+  -webkit-border-radius: 6;
+  -moz-border-radius: 6;
+  border-radius: 6px;
+  text-shadow: 1px 1px 3px #666666;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
+  font-family: Georgia;
+  color: #ffffff;
+  font-size: 15px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #fcfc3c;
+  background-image: -webkit-linear-gradient(top, #fcfc3c, #d9c334);
+  background-image: -moz-linear-gradient(top, #fcfc3c, #d9c334);
+  background-image: -ms-linear-gradient(top, #fcfc3c, #d9c334);
+  background-image: -o-linear-gradient(top, #fcfc3c, #d9c334);
+  background-image: linear-gradient(to bottom, #fcfc3c, #d9c334);
+  text-decoration: none;
+}
+
+a {
+  color: #b8782b;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #d9c334;
+}
+
+h2 {
+  font-family: georgia;
+}
+
+h3 {
+  font-family: arial;
+}
+
+form {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#controls {
+  text-align: center;
+  width: 650px;
+  margin: 15px auto 0 auto;
+  border: 2px;
+  border-style: solid;
+  border-color: white;
+  border-radius: 6px;
+  box-shadow: 0px 1px 3px #666666;
+}
+
+#top {
+  text-align: center;
+}
+
+#board {
+  position: relative;
+  width: 600px;
+  padding-bottom: 600px;
+  margin: auto;
+}
+
+.piece {
+  outline-width: 2px;
+  outline-style: solid;
+  outline-color: white;
+  outline-offset: -2px;
+  position: absolute;
+  background-repeat: no-repeat;
+  transition: margin-left 0.2s, margin-top 0.2s, outline 0.5s;
+}
+
+.cue {
+  filter: opacity(0%);
+  transition: filter 0.5s
+}
+
+#vanilla {
+  width: 40px;
+  vertical-align: middle;
+  transition: width 0.5s, transform 0.5s;
+
+}
+
+#vanilla:hover {
+  width: 50px;
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+footer {
+  text-align: center;
+}
