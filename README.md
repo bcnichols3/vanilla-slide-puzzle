@@ -1,7 +1,7 @@
-A classic slide puzzle made for Chrome entirely in vanilla JS!
+A classic slide puzzle made entirely in `vanilla JS`!
 See more at bcnichols.com
 
-Features
+## Features
 * Adorable default photo
 * Animations
 * Four difficulty settings
