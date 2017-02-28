@@ -9,5 +9,5 @@ See more at bcnichols.com
 * Move counter (...revealed at win!)
 * Shuffle button (...that won't break the puzzle with illegal moves!)
 
-Coming Soon
+## Coming Soon
 * Puzzzle-ify your own photo!
