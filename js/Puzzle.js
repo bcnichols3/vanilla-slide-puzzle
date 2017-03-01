@@ -1,23 +1,32 @@
 import Piece from './Piece';
 
-export default class Puzzle {
+class Puzzle {
   constructor (size = 4, image = 'public/img/default.jpg') {
     this.element = document.getElementById('board');
     this.size = size;
     this.image = image;
     this.pieces = [];
     this.cue = null;
-    this.start = false; // shuffle won't trigger a win
+    this.start = false;
     this.moveCount = 0;
     this.shufflePieces = this.shufflePieces.bind(this);
     this.createBoard();
   }
 
+  clearBoard() {
+    while (this.element.firstChild) {
+      this.element.removeChild(this.element.firstChild);
+    }
+  }
+
   createBoard() {
-    // Separate steps so as to not trigger animations
+    this.clearBoard();
     this.createPieces();
-    this.shufflePieces();
     this.appendPieces();
+    setTimeout(() => {
+      this.shufflePieces();
+    }, 600);
+    this.start = true;
   }
 
   createPieces() {
@@ -34,21 +43,24 @@ export default class Puzzle {
   }
 
   shufflePieces(e) {
+    if (e) e.preventDefault();
+    this.start = false; // Suspend winning during shuffle
+
     let count = 0;
     let neighbors;
     let random;
-    if (e) e.preventDefault();
 
     // Moves must be legal even while shuffling
     // otherwise the puzzle will be unsolvable
     while (count < 100) {
       neighbors = this.pieces.filter(piece => {
-        return piece.pieceNeighborsCue();
+        return piece.neighborsCue();
       });
       random = Math.floor(Math.random() * (neighbors.length));
       neighbors[random].clickHandler();
       count++;
     }
+    this.start = true;
     this.moveCount = 0;
   }
 
@@ -56,7 +68,6 @@ export default class Puzzle {
     this.pieces.forEach(piece => {
       this.element.appendChild(piece.element);
     });
-    this.start = true;
   }
 
   isSolved() {
@@ -67,5 +78,8 @@ export default class Puzzle {
       if (id[0] !== `${piece.x}` || id[1] !== `${piece.y}`) return true;
     });
     if (!incorrect.length) return true;
+    else return false;
   }
 }
+
+export default Puzzle;

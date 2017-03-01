@@ -21,7 +21,7 @@ export default class Piece {
     })();
   }
 
-  pieceNeighborsCue() {
+  neighborsCue() {
     const cue = this.puzzle.cue;
 
     if (this.x === cue.x) { // Same row, neighboring col
@@ -35,9 +35,8 @@ export default class Piece {
 
   clickHandler() {
     const cue = this.puzzle.cue;
-    const percent = 100 / this.puzzle.size;
 
-    if (this.pieceNeighborsCue()) {
+    if (this.neighborsCue()) {
       const temp = {
         x: cue.x,
         marginLeft: cue.element.style.marginLeft,

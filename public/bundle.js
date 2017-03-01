@@ -106,12 +106,23 @@ var Puzzle = function () {
   }
 
   _createClass(Puzzle, [{
+    key: 'clearBoard',
+    value: function clearBoard() {
+      while (this.element.firstChild) {
+        this.element.removeChild(this.element.firstChild);
+      }
+    }
+  }, {
     key: 'createBoard',
     value: function createBoard() {
-      // Separate steps so as to not trigger animations
+      var _this = this;
+
+      this.clearBoard();
       this.createPieces();
-      this.shufflePieces();
       this.appendPieces();
+      setTimeout(function () {
+        _this.shufflePieces();
+      }, 600);
     }
   }, {
     key: 'createPieces',
@@ -130,32 +141,34 @@ var Puzzle = function () {
   }, {
     key: 'shufflePieces',
     value: function shufflePieces(e) {
+      if (e) e.preventDefault();
+      this.start = false; // Suspend winning during shuffle
+
       var count = 0;
       var neighbors = void 0;
       var random = void 0;
-      if (e) e.preventDefault();
 
       // Moves must be legal even while shuffling
       // otherwise the puzzle will be unsolvable
       while (count < 100) {
         neighbors = this.pieces.filter(function (piece) {
-          return piece.pieceNeighborsCue();
+          return piece.neighborsCue();
         });
         random = Math.floor(Math.random() * neighbors.length);
         neighbors[random].clickHandler();
         count++;
       }
+      this.start = true;
       this.moveCount = 0;
     }
   }, {
     key: 'appendPieces',
     value: function appendPieces() {
-      var _this = this;
+      var _this2 = this;
 
       this.pieces.forEach(function (piece) {
-        _this.element.appendChild(piece.element);
+        _this2.element.appendChild(piece.element);
       });
-      this.start = true;
     }
   }, {
     key: 'isSolved',
@@ -166,7 +179,7 @@ var Puzzle = function () {
         var id = piece.element.id.split('-');
         if (id[0] !== '' + piece.x || id[1] !== '' + piece.y) return true;
       });
-      if (!incorrect.length) return true;
+      if (!incorrect.length) return true;else return false;
     }
   }]);
 
@@ -218,8 +231,8 @@ var Piece = function () {
   }
 
   _createClass(Piece, [{
-    key: 'pieceNeighborsCue',
-    value: function pieceNeighborsCue() {
+    key: 'neighborsCue',
+    value: function neighborsCue() {
       var cue = this.puzzle.cue;
 
       if (this.x === cue.x) {
@@ -235,9 +248,8 @@ var Piece = function () {
     key: 'clickHandler',
     value: function clickHandler() {
       var cue = this.puzzle.cue;
-      var percent = 100 / this.puzzle.size;
 
-      if (this.pieceNeighborsCue()) {
+      if (this.neighborsCue()) {
         var temp = {
           x: cue.x,
           marginLeft: cue.element.style.marginLeft,
@@ -286,27 +298,35 @@ var _Puzzle2 = _interopRequireDefault(_Puzzle);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function clearBoard() {
-  var board = document.getElementById('board');
-  while (board.firstChild) {
-    board.removeChild(board.firstChild);
-  }
-}
-
-function createBoard(size) {
-  clearBoard();
-  var puzzle = new _Puzzle2.default(size);
+function createBoard(size, image) {
+  var puzzle = new _Puzzle2.default(size, image);
   document.getElementById('shuffle').onclick = puzzle.shufflePieces;
 }
 
 function sizeChange(e) {
   e.preventDefault();
-  createBoard(e.target.value);
+  var size = e.target.value;
+  var image = document.getElementById('upload').value;
+  if (image === '') createBoard(size);else createBoard(size, image);
+  document.getElementById('size').value = size;
+}
+
+function customPhoto(e) {
+  e.preventDefault();
+  var size = document.getElementById('size').value;
+  var image = e.target.value;
+  if (image === '') {
+    createBoard(size);
+  } else {
+    document.getElementById('upload').value = image;
+    createBoard(size, image);
+  }
 }
 
 window.onload = function () {
   createBoard();
   document.getElementById('size').onchange = sizeChange;
+  document.getElementById('upload').onchange = customPhoto;
 };
 
 /***/ })

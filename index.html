@@ -15,9 +15,15 @@
 
     <div id="controls">
       <form>
-        <label>Puzzle Size:</label>
-        <input id="size" type="range" name="size" min="3" max="6" value="4" />
-        <button id="shuffle" class="btn">Shuffle</button>
+        <div>
+          <label>Puzzle Size:</label>
+          <input id="size" type="range" name="size" min="3" max="6" value="4" />
+          <button id="shuffle" class="btn">Shuffle</button>
+        </div>
+        <div id="custom">
+          <label>Custom photo (must be at least 600px by 600px):</label>
+          <input id="upload" type="url" name="upload" />
+        </div>
       </form>
     </div>
 
