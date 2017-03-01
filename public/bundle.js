@@ -99,7 +99,7 @@ var Puzzle = function () {
     this.image = image;
     this.pieces = [];
     this.cue = null;
-    this.start = false; // shuffle won't trigger a win
+    this.start = false;
     this.moveCount = 0;
     this.shufflePieces = this.shufflePieces.bind(this);
     this.createBoard();
@@ -123,6 +123,7 @@ var Puzzle = function () {
       setTimeout(function () {
         _this.shufflePieces();
       }, 600);
+      this.start = true;
     }
   }, {
     key: 'createPieces',
