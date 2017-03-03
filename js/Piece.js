@@ -56,13 +56,7 @@ export default class Piece {
 
       this.puzzle.moveCount++;
 
-      if (this.puzzle.isSolved()) {
-        document.getElementById('header').innerHTML = `Solved in ${this.puzzle.moveCount} moves!`;
-        this.puzzle.cue.element.style.filter = 'opacity(100%)';
-        this.puzzle.pieces.forEach(piece => {
-          piece.element.style.outline = '0px';
-        });
-      }
+      this.puzzle.checkWin();
     }
   }
 }

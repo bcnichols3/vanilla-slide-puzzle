@@ -1,11 +1,11 @@
 import Puzzle from './Puzzle';
 
-function createBoard(size, image) {
+export function createBoard(size, image) {
   const puzzle = new Puzzle(size, image);
   document.getElementById('shuffle').onclick = puzzle.shufflePieces;
 }
 
-function sizeChange(e) {
+export function sizeChange(e) {
   e.preventDefault();
   let size = e.target.value;
   let image = document.getElementById('upload').value;
@@ -14,7 +14,7 @@ function sizeChange(e) {
   document.getElementById('size').value = size;
 }
 
-function customPhoto(e) {
+export function customPhoto(e) {
   e.preventDefault();
   let size = document.getElementById('size').value;
   let image = e.target.value;

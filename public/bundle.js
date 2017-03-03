@@ -123,7 +123,6 @@ var Puzzle = function () {
       setTimeout(function () {
         _this.shufflePieces();
       }, 600);
-      this.start = true;
     }
   }, {
     key: 'createPieces',
@@ -159,8 +158,8 @@ var Puzzle = function () {
         neighbors[random].clickHandler();
         count++;
       }
-      this.start = true;
-      this.moveCount = 0;
+
+      this.restartPuzzle();
     }
   }, {
     key: 'appendPieces',
@@ -181,6 +180,28 @@ var Puzzle = function () {
         if (id[0] !== '' + piece.x || id[1] !== '' + piece.y) return true;
       });
       if (!incorrect.length) return true;else return false;
+    }
+  }, {
+    key: 'checkWin',
+    value: function checkWin() {
+      if (this.isSolved()) {
+        document.getElementById('header').innerHTML = 'Solved in ' + this.puzzle.moveCount + ' moves!';
+        this.puzzle.cue.element.style.filter = 'opacity(100%)';
+        this.puzzle.pieces.forEach(function (piece) {
+          piece.element.style.outline = '0px';
+        });
+      }
+    }
+  }, {
+    key: 'restartPuzzle',
+    value: function restartPuzzle() {
+      this.start = true;
+      this.moveCount = 0;
+      document.getElementById('header').innerHTML = 'Slide Puzzle';
+      this.puzzle.cue.element.style.filter = 'opacity(0%)';
+      this.puzzle.pieces.forEach(function (piece) {
+        piece.element.style.outline = '2px';
+      });
     }
   }]);
 
@@ -270,13 +291,7 @@ var Piece = function () {
 
         this.puzzle.moveCount++;
 
-        if (this.puzzle.isSolved()) {
-          document.getElementById('header').innerHTML = 'Solved in ' + this.puzzle.moveCount + ' moves!';
-          this.puzzle.cue.element.style.filter = 'opacity(100%)';
-          this.puzzle.pieces.forEach(function (piece) {
-            piece.element.style.outline = '0px';
-          });
-        }
+        this.puzzle.checkWin();
       }
     }
   }]);
@@ -292,6 +307,13 @@ exports.default = Piece;
 
 "use strict";
 
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createBoard = createBoard;
+exports.sizeChange = sizeChange;
+exports.customPhoto = customPhoto;
 
 var _Puzzle = __webpack_require__(0);
 

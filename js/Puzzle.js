@@ -26,7 +26,6 @@ class Puzzle {
     setTimeout(() => {
       this.shufflePieces();
     }, 600);
-    this.start = true;
   }
 
   createPieces() {
@@ -60,8 +59,8 @@ class Puzzle {
       neighbors[random].clickHandler();
       count++;
     }
-    this.start = true;
-    this.moveCount = 0;
+
+    this.restartPuzzle();
   }
 
   appendPieces() {
@@ -79,6 +78,26 @@ class Puzzle {
     });
     if (!incorrect.length) return true;
     else return false;
+  }
+
+  checkWin() {
+    if (this.isSolved()) {
+      document.getElementById('header').innerHTML = `Solved in ${this.puzzle.moveCount} moves!`;
+      this.puzzle.cue.element.style.filter = 'opacity(100%)';
+      this.puzzle.pieces.forEach(piece => {
+        piece.element.style.outline = '0px';
+      });
+    }
+  }
+
+  restartPuzzle() {
+    this.start = true;
+    this.moveCount = 0;
+    document.getElementById('header').innerHTML = `Slide Puzzle`;
+    this.puzzle.cue.element.style.filter = 'opacity(0%)';
+    this.puzzle.pieces.forEach(piece => {
+      piece.element.style.outline = '2px';
+    });
   }
 }
 
