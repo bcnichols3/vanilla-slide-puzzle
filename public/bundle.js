@@ -90,7 +90,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var Puzzle = function () {
   function Puzzle() {
     var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 4;
-    var image = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'public/img/default.jpg';
+    var image = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'img/default.jpg';
 
     _classCallCheck(this, Puzzle);
 
@@ -102,17 +102,11 @@ var Puzzle = function () {
     this.start = false;
     this.moveCount = 0;
     this.shufflePieces = this.shufflePieces.bind(this);
+    this.checkWin = this.checkWin.bind(this);
     this.createBoard();
   }
 
   _createClass(Puzzle, [{
-    key: 'clearBoard',
-    value: function clearBoard() {
-      while (this.element.firstChild) {
-        this.element.removeChild(this.element.firstChild);
-      }
-    }
-  }, {
     key: 'createBoard',
     value: function createBoard() {
       var _this = this;
@@ -123,6 +117,13 @@ var Puzzle = function () {
       setTimeout(function () {
         _this.shufflePieces();
       }, 600);
+    }
+  }, {
+    key: 'clearBoard',
+    value: function clearBoard() {
+      while (this.element.firstChild) {
+        this.element.removeChild(this.element.firstChild);
+      }
     }
   }, {
     key: 'createPieces',
@@ -137,6 +138,15 @@ var Puzzle = function () {
         }
         this.pieces.push(piece);
       }
+    }
+  }, {
+    key: 'appendPieces',
+    value: function appendPieces() {
+      var _this2 = this;
+
+      this.pieces.forEach(function (piece) {
+        _this2.element.appendChild(piece.element);
+      });
     }
   }, {
     key: 'shufflePieces',
@@ -162,15 +172,6 @@ var Puzzle = function () {
       this.restartPuzzle();
     }
   }, {
-    key: 'appendPieces',
-    value: function appendPieces() {
-      var _this2 = this;
-
-      this.pieces.forEach(function (piece) {
-        _this2.element.appendChild(piece.element);
-      });
-    }
-  }, {
     key: 'isSolved',
     value: function isSolved() {
       if (this.start === false) return false;
@@ -185,9 +186,9 @@ var Puzzle = function () {
     key: 'checkWin',
     value: function checkWin() {
       if (this.isSolved()) {
-        document.getElementById('header').innerHTML = 'Solved in ' + this.puzzle.moveCount + ' moves!';
-        this.puzzle.cue.element.style.filter = 'opacity(100%)';
-        this.puzzle.pieces.forEach(function (piece) {
+        document.getElementById('header').innerHTML = 'Solved in ' + this.moveCount + ' moves!';
+        this.cue.element.style.filter = 'opacity(100%)';
+        this.pieces.forEach(function (piece) {
           piece.element.style.outline = '0px';
         });
       }
@@ -198,9 +199,9 @@ var Puzzle = function () {
       this.start = true;
       this.moveCount = 0;
       document.getElementById('header').innerHTML = 'Slide Puzzle';
-      this.puzzle.cue.element.style.filter = 'opacity(0%)';
-      this.puzzle.pieces.forEach(function (piece) {
-        piece.element.style.outline = '2px';
+      this.cue.element.style.filter = 'opacity(0%)';
+      this.pieces.forEach(function (piece) {
+        piece.element.style.outlineWidth = '2px';
       });
     }
   }]);

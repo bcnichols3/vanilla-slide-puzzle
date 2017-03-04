@@ -11,7 +11,7 @@ describe('Puzzle class', () => {
 
   beforeEach('create a clean DOM and new Puzzle instance', () => {
     const doc = jsdom.jsdom(
-      '<!doctype html><html><body><div id="board"></div></body></html>'
+      '<!doctype html><html><body><h2 id="header">Slide Puzzle</h2><div id="board"></div></body></html>'
     );
 
     global.document = doc;
@@ -30,11 +30,11 @@ describe('Puzzle class', () => {
     it('has the expected default values', () => {
       expect(puzzle.element.id).to.be.equal('board');
       expect(puzzle.size).to.be.equal(4);
-      expect(puzzle.image).to.be.equal('public/img/default.jpg');
+      expect(puzzle.image).to.be.equal('img/default.jpg');
       expect(puzzle.pieces).to.be.instanceof(Array);
       expect(puzzle.pieces.length).to.be.equal(16);
       expect(puzzle.cue).to.be.instanceof(Piece);
-      expect(puzzle.start).to.be.true;
+      expect(puzzle.start).to.be.false;
       expect(puzzle.moveCount).to.be.equal(0);
     });
   })
@@ -93,6 +93,7 @@ describe('Puzzle class', () => {
     it('returns true if all pieces are in place', () => {
       puzzle.pieces = [];
       puzzle.createPieces();
+      puzzle.start = true;
       expect(puzzle.isSolved()).to.be.true;
     });
   });

@@ -1,7 +1,7 @@
 import Piece from './Piece';
 
 class Puzzle {
-  constructor (size = 4, image = 'public/img/default.jpg') {
+  constructor (size = 4, image = 'img/default.jpg') {
     this.element = document.getElementById('board');
     this.size = size;
     this.image = image;
@@ -10,13 +10,8 @@ class Puzzle {
     this.start = false;
     this.moveCount = 0;
     this.shufflePieces = this.shufflePieces.bind(this);
+    this.checkWin = this.checkWin.bind(this);
     this.createBoard();
-  }
-
-  clearBoard() {
-    while (this.element.firstChild) {
-      this.element.removeChild(this.element.firstChild);
-    }
   }
 
   createBoard() {
@@ -26,6 +21,12 @@ class Puzzle {
     setTimeout(() => {
       this.shufflePieces();
     }, 600);
+  }
+
+  clearBoard() {
+    while (this.element.firstChild) {
+      this.element.removeChild(this.element.firstChild);
+    }
   }
 
   createPieces() {
@@ -39,6 +40,12 @@ class Puzzle {
       }
       this.pieces.push(piece);
     }
+  }
+
+  appendPieces() {
+    this.pieces.forEach(piece => {
+      this.element.appendChild(piece.element);
+    });
   }
 
   shufflePieces(e) {
@@ -63,12 +70,6 @@ class Puzzle {
     this.restartPuzzle();
   }
 
-  appendPieces() {
-    this.pieces.forEach(piece => {
-      this.element.appendChild(piece.element);
-    });
-  }
-
   isSolved() {
     if (this.start === false) return false;
 
@@ -82,9 +83,9 @@ class Puzzle {
 
   checkWin() {
     if (this.isSolved()) {
-      document.getElementById('header').innerHTML = `Solved in ${this.puzzle.moveCount} moves!`;
-      this.puzzle.cue.element.style.filter = 'opacity(100%)';
-      this.puzzle.pieces.forEach(piece => {
+      document.getElementById('header').innerHTML = `Solved in ${this.moveCount} moves!`;
+      this.cue.element.style.filter = 'opacity(100%)';
+      this.pieces.forEach(piece => {
         piece.element.style.outline = '0px';
       });
     }
@@ -94,9 +95,9 @@ class Puzzle {
     this.start = true;
     this.moveCount = 0;
     document.getElementById('header').innerHTML = `Slide Puzzle`;
-    this.puzzle.cue.element.style.filter = 'opacity(0%)';
-    this.puzzle.pieces.forEach(piece => {
-      piece.element.style.outline = '2px';
+    this.cue.element.style.filter = 'opacity(0%)';
+    this.pieces.forEach(piece => {
+      piece.element.style.outlineWidth = '2px';
     });
   }
 }

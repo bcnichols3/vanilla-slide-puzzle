@@ -7,6 +7,9 @@ import Piece from '../js/Piece';
 let puzzle;
 let piece;
 let cue;
+let checkWinSpy = spy(() => {
+  return false;
+});
 let isSolvedSpy = spy(() => {
   return false;
 });
@@ -27,7 +30,8 @@ describe('Piece class', () => {
       cue: null,
       start: true,
       moveCount: 0,
-      isSolved: isSolvedSpy
+      isSolved: isSolvedSpy,
+      checkWin: checkWinSpy
     };
     piece = new Piece(puzzle);
     piece.neighborsCue = spy(piece.neighborsCue);
